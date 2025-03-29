@@ -1,0 +1,35 @@
+name: Modify JSON and Create PR
+
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  modify-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install PyGithub
+
+    - name: Modify JSON and create PR
+      run: |
+        python modify_json.py
+    - name: Push changes and create PR
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git checkout -b modify-json-branch
+        git add .
+        git commit -m "Modified JSON file"
+        git push origin modify-json-branch
+        gh pr create --title "Modify JSON file" --body "This PR modifies the JSON file." --base main --head modify-json-branch
