@@ -21,9 +21,9 @@ jobs:
 
     - name: Run JSON modification script
       env:
-        INPUT_FILE: "edp/org_v2.json" # Replace with your input file path
+        INPUT_FILE: "forest-runner-game/org_v2.json" # Updated input file path
       run: |
-        python "Agent_AI/modify_json.py" "$INPUT_FILE"
+        python "forest-runner-game/modify_json.py" "$INPUT_FILE"
 
     - name: Commit and push changes
       run: |
