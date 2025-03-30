@@ -1,0 +1,63 @@
+{
+    "$schema": "https://dar.edp.com/schemas/edp-configuration-schema-0.2.0.json",
+    "$id": "dar://dar.edp.bestbuy.com/entries/product/org/v2",
+    "metadata": {
+        "description": "Best Buy Product Entry",
+        "trigger": "ABC",
+        "domain": "product",
+        "event_type": "org",
+        "version": "v2"
+    },
+    "data_source": {
+        "team_name": "abcded",
+        "team_id": "1234567890"
+    },
+    "data_topic": {
+        "topic_name": "product",
+        "topic_id": "1234567890",
+        "topic_type": "product",
+        "topic_version": "v2"
+    },
+    "data_acquisition": {
+        "pattern": "cdc",
+        "database": "bestbuy",
+        "table": "product"
+    },
+    "data_asset_schema": [
+        {
+            "name": "event_type",
+            "description": "Best Buy Product Entry",
+            "data_type": "string",
+            "mode": "required",
+            "protection_policy": "none"
+        },
+        {
+            "name": "product_id",
+            "description": "Unique identifier for the product",
+            "data_type": "string",
+            "mode": "required",
+            "protection_policy": "none"
+        },
+        {
+            "name": "product_name",
+            "description": "Name of the product",
+            "data_type": "string",
+            "mode": "required",
+            "protection_policy": "none"
+        },
+        {
+            "name": "price",
+            "description": "Price of the product",
+            "data_type": "float",
+            "mode": "required",
+            "protection_policy": "none"
+        },
+        {
+            "name": "availability_status",
+            "description": "Availability status of the product",
+            "data_type": "string",
+            "mode": "optional",
+            "protection_policy": "none"
+        }
+    ]
+}
