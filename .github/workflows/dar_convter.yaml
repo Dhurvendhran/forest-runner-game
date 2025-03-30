@@ -1,7 +1,12 @@
 name: Automate JSON Update and PR
 
 on:
-  workflow_dispatch: # Allows manual triggering of the workflow
+  workflow_dispatch:
+    inputs:
+      input_file:
+        description: "Path to the input JSON file"
+        required: true
+        default: "org_v2.json"
 
 jobs:
   process-json:
@@ -20,10 +25,8 @@ jobs:
       run: pip install --upgrade pip
 
     - name: Run JSON modification script
-      env:
-        INPUT_FILE: "edp/org_v2.json" # Updated input file path
       run: |
-        python "test demo 1 on Agent AI/modify_json.py" "$INPUT_FILE"
+        python "Agent AI/modify_json.py" "${{ github.event.inputs.input_file }}"
 
     - name: Commit and push changes
       run: |
