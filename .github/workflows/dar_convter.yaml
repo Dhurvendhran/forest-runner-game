@@ -1,0 +1,43 @@
+name: Automate JSON Update and PR
+
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  process-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install --upgrade pip
+
+    - name: Run JSON modification script
+      env:
+        INPUT_FILE: "edp/org_v2.json" # Replace with your input file path
+      run: |
+        python "test demo 1 on Agent AI/modify_json.py" "$INPUT_FILE"
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git checkout -b update-json-files
+        git add .
+        git commit -m "Automated JSON updates based on input file"
+        git push origin update-json-files
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: update-json-files
+        title: "Automated JSON Updates"
+        body: "This PR contains automated updates to JSON files based on the input file."
