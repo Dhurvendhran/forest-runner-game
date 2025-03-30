@@ -23,7 +23,7 @@ jobs:
       env:
         INPUT_FILE: "edp/org_v2.json" # Replace with your input file path
       run: |
-        python "Agent AI/modify_json.py" "$INPUT_FILE"
+        python "Agent_AI/modify_json.py" "$INPUT_FILE"
 
     - name: Commit and push changes
       run: |
